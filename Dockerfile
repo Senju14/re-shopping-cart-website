@@ -1,8 +1,5 @@
-#
-# Multi-stage build for Spring Boot (Gradle) app
-#
-
-FROM eclipse-temurin:21-jdk AS build
+# Use official OpenJDK 23 image for production
+FROM eclipse-temurin:23-jdk AS build
 WORKDIR /app
 
 # Copy only what we need for a reproducible Gradle build
@@ -15,15 +12,14 @@ COPY src /app/src
 # Build a runnable jar (skip tests in CI image build unless you have DB-independent tests)
 RUN chmod +x /app/gradlew && /app/gradlew clean bootJar -x test
 
-FROM eclipse-temurin:21-jre AS runtime
+FROM eclipse-temurin:23-jre AS runtime
 WORKDIR /app
 
 ENV TZ=UTC
 ENV JAVA_OPTS=""
 
-COPY --from=build /app/build/libs/*.jar /app/app.jar
+COPY --from=build /app/build/libs/*.jar app.jar
 
-EXPOSE 8080
+EXPOSE 8081
 
-# Use sh -c so JAVA_OPTS is expanded
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar /app/app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]

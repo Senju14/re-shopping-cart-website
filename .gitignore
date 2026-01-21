@@ -40,3 +40,10 @@ out/
 .env
 .env.prod
 .env.local
+
+### Sensitive files ###
+huynguyenwork14_accessKeys.csv
+huynguyenwork14_credentials.csv
+temp.txt
+ca.pem
+*.pem

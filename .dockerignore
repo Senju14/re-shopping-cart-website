@@ -1,19 +1,19 @@
 # Build artifacts
 build/
 bin/
-out/
+build/
 .gradle/
-*.class
-*.jar
-*.war
-*.ear
-
-# IDE files
-.idea/
-.vscode/
+.git/
+.gitignore
+Dockerfile
+ci-cd.yaml
 *.iml
-*.ipr
-*.iws
+*.log
+*.env
+*.env.*
+*.DS_Store
+.vscode/
+.idea/
 .classpath
 .project
 .settings/
